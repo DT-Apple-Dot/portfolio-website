@@ -9,8 +9,8 @@ export async function POST(req, res) {
   console.log(email, subject, message);
   try {
     const data = await resend.emails.send({
-      from: fromEmail,
-      to: ["webdecodedtutorials@gmail.com", email],
+      from: fromEmailemail,
+      to: [fromEmail, email],
       subject: subject,
       react: (
         <>
@@ -21,7 +21,7 @@ export async function POST(req, res) {
         </>
       ),
     });
-    return NextResponse.json(data);
+    return NextResponse.json({});
   } catch (error) {
     return NextResponse.json({ error });
   }

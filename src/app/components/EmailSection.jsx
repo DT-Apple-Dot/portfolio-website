@@ -73,6 +73,7 @@ const EmailSection = () => {
               >
                 Your email
               </label>
+
               <input
                 name="email"
                 type="email"
@@ -82,6 +83,7 @@ const EmailSection = () => {
                 placeholder="jacob@google.com"
               />
             </div>
+
             <div className="mb-6">
               <label
                 htmlFor="subject"
@@ -89,6 +91,7 @@ const EmailSection = () => {
               >
                 Subject
               </label>
+
               <input
                 name="subject"
                 type="text"
@@ -98,6 +101,7 @@ const EmailSection = () => {
                 placeholder="Just saying hi"
               />
             </div>
+
             <div className="mb-6">
               <label
                 htmlFor="message"
@@ -105,6 +109,7 @@ const EmailSection = () => {
               >
                 Message
               </label>
+
               <textarea
                 name="message"
                 id="message"
@@ -112,6 +117,7 @@ const EmailSection = () => {
                 placeholder="Let's talk about..."
               />
             </div>
+            
             <button
               type="submit"
               className="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full"
