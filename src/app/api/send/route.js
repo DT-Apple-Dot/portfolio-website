@@ -1,28 +1,34 @@
+// app/api/send/route.js
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const fromEmail = process.env.FROM_EMAIL;
-
-export async function POST(req, res) {
-  const { email, subject, message } = await req.json();
-  console.log(email, subject, message);
+export async function POST(req) {
   try {
-    const data = await resend.emails.send({
-      from: fromEmailemail,
-      to: [fromEmail, email],
-      subject: subject,
-      react: (
-        <>
-          <h1>{subject}</h1>
-          <p>Thank you for contacting us!</p>
-          <p>New message submitted:</p>
-          <p>{message}</p>
-        </>
-      ),
+    const body = await req.json();
+    console.log(body.email, "this is email....");
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      secure: false,
+      auth: {
+        user: "dt.bot.ygn@gmail.com",
+        pass: "pmls mlch qvmj spvi",
+      },
     });
-    return NextResponse.json({});
-  } catch (error) {
-    return NextResponse.json({ error });
+
+    const mailOptions = {
+      from: "Message Bot <dt.bot.ygn@gmail.com>",
+      to: "dt.appledot.ygn@gmail.com",
+      subject: body.subject || "No Subject",
+      text: `From: <${body.email}>\n${body.message || "No Message"}`,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent:", info.response);
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("EMAIL ERROR:", err); // <--- CHECK this in your terminal
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
